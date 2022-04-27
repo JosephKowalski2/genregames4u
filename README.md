@@ -1,4 +1,4 @@
-# genregames4u
+# GenreGames4u
 
 While browsing your favorite gaming marketplace I’m sure you have seen it recommend games for you based on ones you have viewed or bought. While those aren’t bad, wouldn't it be better to be able to view games in a specific genre that you would want to see?
 
