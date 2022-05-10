@@ -19,13 +19,20 @@ df2['platform'] = df2['platform'].str.replace("'", '', regex=True)
 image = st.container()
 with image:
     banner =Image.open('Genre games4u.png')
-    st.image(banner, width=1150)
+    st.image(banner, width=800)
+
+with st.sidebar:
+    score_average = st.slider('Average MetaScore and UserScore', 0, 100, 0)
+    score_meta = st.slider('Meta score', 0, 100, 0)
+    score_user = st.slider('User score', 0, 100, 0)
+    video_game = st.text_input('Search for video game name')
+
 
 #Game recommender
 def recommender(searched_genre):
     games = df2[df2['genre'].str.contains(searched_genre, case=False)]
     # games = temp.reset_index()
-    st.dataframe(games.query('((meta_score + user_score) / 2) > 50.0').sample(10).style.format({'user_score': '{:.2f}', 'meta_score': '{:.2f}'}))
+    st.dataframe(games.query(f'((meta_score + user_score) / 2) >= {score_average}').sample(10).style.format({'user_score': '{:.2f}', 'meta_score': '{:.2f}'}))
     return games.query('((meta_score + user_score) / 2) > 50.0').sample(10)
 
 
@@ -83,5 +90,15 @@ searched_genre = st.selectbox('Genre Select', ['Beat-Em-Up',
                               'Turn-Based',
                               'Tycoon',
                               'WWI'])
+try:
+    recommender(searched_genre)
+except:
+        # st.text('No games available in this range')
+        st.markdown("<h1 style='text-align: center; color: blue;'>No games available in this range </h1>",
+                    unsafe_allow_html=True)
 
-recommender(searched_genre)
+text = st.container()
+with text:
+    st.caption('All data gathered from Kaggle')
+    st.caption('All scores are based on https://www.metacritic.com')
+    st.caption('Dataset gathered from https://www.kaggle.com/datasets/xcherry/games-of-all-time-from-metacritic')
