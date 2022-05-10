@@ -14,12 +14,15 @@ df2['platform'] = df2['platform'].str.replace('[', '', regex=True)
 df2['platform'] = df2['platform'].str.replace(']', '', regex=True)
 df2['platform'] = df2['platform'].str.replace("'", '', regex=True)
 df2['platform'] = df2['platform'].str.replace("'", '', regex=True)
-
+df3 = df2.rename(columns={f'game_name': 'Game Name', 'meta_score': 'Meta Score', 'user_score': 'User Score',
+                    'platform': 'Platform', 'description': 'Description', 'genre': 'Genre', 'type':'Player Type',
+                    'rating': 'ESRB Rating'})
+# df3.drop('index', inplace=True)
 #Banner image
 image = st.container()
 with image:
     banner =Image.open('Genre games4u.png')
-    st.image(banner, width=800)
+    st.image(banner, width=810)
 
 with st.sidebar:
     score_average = st.slider('Average MetaScore and UserScore', 0, 100, 0)
@@ -30,10 +33,10 @@ with st.sidebar:
 
 #Game recommender
 def recommender(searched_genre):
-    games = df2[df2['genre'].str.contains(searched_genre, case=False)]
+    games = df3[df3['Genre'].str.contains(searched_genre, case=False)]
     # games = temp.reset_index()
-    st.dataframe(games.query(f'((meta_score + user_score) / 2) >= {score_average}').sample(10).style.format({'user_score': '{:.2f}', 'meta_score': '{:.2f}'}))
-    return games.query('((meta_score + user_score) / 2) > 50.0').sample(10)
+    st.dataframe(games.query(f'((`Meta Score` + `User Score`) / 2) >= {score_average}').sample(10).style.format({'User Score': '{:.2f}', 'Meta Score': '{:.2f}'}))
+    return games.query('((`Meta Score` + `User Score`) / 2) > 50.0').sample(10)
 
 
 searched_genre = st.selectbox('Genre Select', ['Beat-Em-Up',
