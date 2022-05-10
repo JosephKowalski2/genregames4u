@@ -17,19 +17,18 @@ df2['platform'] = df2['platform'].str.replace("'", '', regex=True)
 df3 = df2.rename(columns={f'game_name': 'Game Name', 'meta_score': 'Meta Score', 'user_score': 'User Score',
                     'platform': 'Platform', 'description': 'Description', 'genre': 'Genre', 'type':'Player Type',
                     'rating': 'ESRB Rating'})
-# df3.drop('index', inplace=True)
+
 #Banner image
 image = st.container()
 with image:
     banner =Image.open('Genre games4u.png')
-    st.image(banner, width=810)
+    st.image(banner, width=810, use_column_width=True)
 
 with st.sidebar:
     score_average = st.slider('Average MetaScore and UserScore', 0, 100, 0)
     score_meta = st.slider('Meta score', 0, 100, 0)
     score_user = st.slider('User score', 0, 100, 0)
     video_game = st.text_input('Search for video game name')
-
 
 #Game recommender
 def recommender(searched_genre):
