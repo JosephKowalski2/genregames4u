@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from PIL import Image
 
+#Loading data into Dataframe and cleaning data
 df = pd.read_csv('games_of_all_time.csv')
 df2 = df.drop(['url', 'developer'], 1)
 df2.fillna('No Data', inplace=True)
@@ -14,9 +15,13 @@ df2['platform'] = df2['platform'].str.replace(']', '', regex=True)
 df2['platform'] = df2['platform'].str.replace("'", '', regex=True)
 df2['platform'] = df2['platform'].str.replace("'", '', regex=True)
 
-image = Image.open('Genre games4u.png')
-st.image(image, width=1000)
+#Banner image
+image = st.container()
+with image:
+    banner =Image.open('Genre games4u.png')
+    st.image(banner, width=1150)
 
+#Game recommender
 def recommender(searched_genre):
     games = df2[df2['genre'].str.contains(searched_genre, case=False)]
     # games = temp.reset_index()
