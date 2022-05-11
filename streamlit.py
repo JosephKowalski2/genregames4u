@@ -28,9 +28,6 @@ with image:
 
 with st.sidebar:
     score_average = st.slider('Average MetaScore and UserScore', 0, 100, 0)
-    score_meta = st.slider('Meta score', 0, 100, 0)
-    score_user = st.slider('User score', 0, 100, 0)
-
     select_platform = st.multiselect('Platform Select', ['3ds',
                                                          'dreamcast',
                                                          'ds',
@@ -54,6 +51,8 @@ with st.sidebar:
                                                          'xbox one',
                                                          'xbox series x'])
     video_game = st.text_input('Search for video game name')
+    score_meta = st.slider('Meta score', 0, 100, 0)
+    score_user = st.slider('User score', 0, 100, 0)
 
 # Game recommender
 def recommender(searched_genre):
@@ -61,12 +60,8 @@ def recommender(searched_genre):
     # games = temp.reset_index()
     mask = games.Platform.apply(lambda x: any(item for item in select_platform if item in x))
     games2 = games[mask]
-    st.dataframe(games2.query(
-        f'((`Meta Score` + `User Score`) / 2) >= {score_average}').sample(
-        10).style.format(
-        {'User Score': '{:.2f}', 'Meta Score': '{:.2f}'}))
-    return games2.query(
-        f'((`Meta Score` + `User Score`) / 2) > {score_average})').sample(10)
+    st.dataframe(games2.query(f'((`Meta Score` + `User Score`) / 2) >= {score_average}').sample(10).style.format({'User Score': '{:.2f}', 'Meta Score': '{:.2f}'}))
+    return games2.query(f'((`Meta Score` + `User Score`) / 2) >= {score_average}').sample(10)
 
 
 searched_genre = st.selectbox('Genre Select', ['Beat-Em-Up',
