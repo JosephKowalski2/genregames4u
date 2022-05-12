@@ -27,7 +27,6 @@ with image:
     st.image(banner, width=810, use_column_width=True)
 
 with st.sidebar:
-    score_average = st.slider('Average MetaScore and UserScore', 0, 100, 0)
     select_platform = st.multiselect('Platform Select', ['3ds',
                                                          'dreamcast',
                                                          'ds',
@@ -50,9 +49,10 @@ with st.sidebar:
                                                          'xbox 360',
                                                          'xbox one',
                                                          'xbox series x'])
-    video_game = st.text_input('Search for video game name')
+    score_average = st.slider('Average Meta Score and User Score', 0, 100, 0)
     score_meta = st.slider('Meta score', 0, 100, 0)
     score_user = st.slider('User score', 0, 100, 0)
+    video_game = st.text_input('Search for video game name')
 
 # Game recommender
 def recommender(searched_genre):
@@ -127,6 +127,5 @@ except ValueError:
 
 text = st.container()
 with text:
-    st.caption('All data gathered from Kaggle')
     st.caption('All scores are based on https://www.metacritic.com')
     st.caption('Dataset gathered from https://www.kaggle.com/datasets/xcherry/games-of-all-time-from-metacritic')
