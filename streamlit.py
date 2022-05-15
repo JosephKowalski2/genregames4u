@@ -57,7 +57,6 @@ with st.sidebar:
 # Game recommender
 def recommender(searched_genre):
     games = df3[df3['Genre'].str.contains(searched_genre, case=False)]
-    # games = temp.reset_index()
     mask = games.Platform.apply(lambda x: any(item for item in select_platform if item in x))
     games2 = games[mask]
     st.dataframe(games2.query(f'((`Meta Score` + `User Score`) / 2) >= {score_average}').sample(10).style.format({'User Score': '{:.2f}', 'Meta Score': '{:.2f}'}))
@@ -121,7 +120,6 @@ searched_genre = st.selectbox('Genre Select', ['Beat-Em-Up',
 try:
     recommender(searched_genre)
 except ValueError:
-    # st.text('No games available in this range')
     st.markdown("<h1 style='text-align: center; color: blue;'>No games available in this range </h1>",
                 unsafe_allow_html=True)
 
