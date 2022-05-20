@@ -26,7 +26,9 @@ with image:
     banner = Image.open('Genre games4u.png')
     st.image(banner, width=810, use_column_width=True)
 
+
 with st.sidebar:
+    generate_recommends = st.button('Generate Random Recommendations')
     select_platform = st.multiselect('Platform Select', ['3ds',
                                                          'dreamcast',
                                                          'ds',
@@ -117,11 +119,13 @@ searched_genre = st.selectbox('Genre Select', ['Beat-Em-Up',
                                                'Turn-Based',
                                                'Tycoon',
                                                'WWI'])
-try:
-    recommender(searched_genre)
-except ValueError:
-    st.markdown("<h1 style='text-align: center; color: blue;'>No games available in this range </h1>",
-                unsafe_allow_html=True)
+
+if generate_recommends:
+    try:
+        recommender(searched_genre)
+    except ValueError:
+        st.markdown("<h1 style='text-align: center; color: blue;'>No games available in this range </h1>",
+                    unsafe_allow_html=True)
 
 text = st.container()
 with text:
