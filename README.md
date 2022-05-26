@@ -9,3 +9,9 @@ My idea is that it won’t return the same 20 games each time. Some games may be
 This idea may be expanded on or changed depending on research and what the program needs are. The idea may be expanded upon as work on the project continues.
 
 The tools I plan to use are python, pandas, and jupyter notebooks to visualize the data. More tools may be used as the project progresses.
+
+Update: Using streamlit to run recommender locally. 
+
+# Features to add
+1. Ability to choose to search by user score, meta score, or average user and meta score.
+2. Search for a game and return games in that genre(s).
